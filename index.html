@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html>
+<title>QR.smasher</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
+.w3-row-padding img {margin-bottom: 12px}
+/* Set the width of the sidebar to 120px */
+.w3-sidebar {width: 120px;background: #222;}
+/* Add a left margin to the "page content" that matches the width of the sidebar (120px) */
+#main {margin-left: 120px}
+/* Remove margins from "page content" on small screens */
+@media only screen and (max-width: 600px) {#main {margin-left: 0}}
+</style>
+
+
+<!-- AWS -->
+
+
+<script src="https://sdk.amazonaws.com/js/aws-sdk-2.1.24.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript">
+//Bucket Configurations
+var bucketName = "qrcodefile";
+AWS.config.region = 'us-east-1'; // Region
+AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+    IdentityPoolId: 'us-east-1:0a62c853-a800-4e9f-aa03-e20c3d4a44e2',
+});
+
+ AWS.config.update({
+                region: bucketRegion,
+                credentials: new AWS.CognitoIdentityCredentials({
+                    IdentityPoolId: IdentityPoolId
+                })
+            });
+
+            var s3 = new AWS.S3({
+                apiVersion: '2014-06-30',
+                params: {Bucket: bucketName}
+        });
+</script>
+
+
+
+
+
+
+
+
+<body class="w3-black">
+
+
+
+<!-- Icon Bar (Sidebar - hidden on small screens) -->
+<nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
+  <!-- Avatar image in top left corner -->
+  <img src="PDF_.png" style="width:100%">
+  <a href="#" class="w3-bar-item w3-button w3-padding-large w3-black">
+    <i class="fa fa-home w3-xxlarge"></i>
+    <p>HOME</p>
+  </a>
+  <a class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+    <i class="fa fa-user w3-xxlarge"></i>
+    <!-- <p>MY PROFILE</p> -->
+    <!-- <button class="open-button" onclick="openForm()">MY PROFILE</button> -->
+
+    <style>
+      body {font-family: Arial, Helvetica, sans-serif;}
+      
+      /* Full-width input fields */
+      input[type=text], input[type=password] {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+      }
+      
+      /* Set a style for all buttons */
+      button {
+        background-color: #04AA6D;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+      }
+      
+      button:hover {
+        opacity: 0.8;
+      }
+      
+      /* Extra styles for the cancel button */
+      .cancelbtn {
+        width: auto;
+        padding: 10px 18px;
+        background-color: #f44336;
+      }
+      
+      /* Center the image and position the close button */
+      .imgcontainer {
+        text-align: center;
+        margin: 24px 0 12px 0;
+        position: relative;
+      }
+      
+      img.avatar {
+        width: 40%;
+        border-radius: 50%;
+      }
+      
+      .container {
+        padding: 16px;
+      }
+      
+      span.psw {
+        float: right;
+        padding-top: 16px;
+      }
+      
+      /* The Modal (background) */
+      .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        padding-top: 60px;
+        margin-left: 5% ;
+      }
+      
+      /* Modal Content/Box */
+      .modal-content {
+        background-color: #fefefe;
+        margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+        border: 1px solid #888;
+        width: 80%; /* Could be more or less, depending on screen size */
+      }
+      
+      /* The Close Button (x) */
+      .close {
+        position: absolute;
+        right: 25px;
+        top: 0;
+        color: #000;
+        font-size: 35px;
+        font-weight: bold;
+      }
+      
+      .close:hover,
+      .close:focus {
+        color: red;
+        cursor: pointer;
+      }
+      
+      /* Add Zoom Animation */
+      .animate {
+        -webkit-animation: animatezoom 0.6s;
+        animation: animatezoom 0.6s
+      }
+      
+      @-webkit-keyframes animatezoom {
+        from {-webkit-transform: scale(0)} 
+        to {-webkit-transform: scale(1)}
+      }
+        
+      @keyframes animatezoom {
+        from {transform: scale(0)} 
+        to {transform: scale(1)}
+      }
+      
+      /* Change styles for span and cancel button on extra small screens */
+      @media screen and (max-width: 300px) {
+        span.psw {
+           display: block;
+           float: none;
+        }
+        .cancelbtn {
+           width: 100%;
+        }
+      }
+      </style>
+
+<script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js">
+
+</script>
+
+<script type="text/javascript">
+  // window.onload = hhFunction;
+  // var testinput = document.getElementById("itext").value;
+  console.log("Value of testinput", this.testinput)
+
+  function trackChange(value){
+    var inptext = document.getElementById("itext").value;
+    console.log("Input text from inptext is : ", this.inptext)
+  }
+  
+  function params() {
+    document.getElementById("qrcode").innerHTML = "";
+    console.log(document.getElementById("itext").value);
+    console.log("Input text from inptext  : ", this.inptext)
+    
+    var qrcode = new QRCode(document.getElementById("qrcode"), {
+      // value: console.log(this.inputtext),
+      text: document.getElementById("itext").value,
+      width: 400,
+      height: 400,
+      // colorDark: "#5868bf",
+      // colorLight: "#ffffff",
+      // correctLevel : QRCode.CorrectLevel.H
+    });
+  }
+
+</script>
+  
+    <button onclick="document.getElementById('id01').style.display='block'" style="width:auto; background-color: rgb(48, 45, 45);">MY PROFILE</button>
+
+    <div id="id01" class="modal">
+      
+      <form class="modal-content animate" action="/action_page.php" method="post">
+        <div class="imgcontainer">
+          <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+          <img src="Av.jpg" alt="Avatar" class="avatar">
+        </div>
+    
+        <div class="container">
+          <label for="uname"><b>Username</b></label>
+          <input type="text" placeholder="Enter Username" name="uname" required>
+    
+          <label for="psw"><b>Password</b></label>
+          <input type="password" placeholder="Enter Password" name="psw" required>
+            
+          <button type="submit">Login</button>
+          <label>
+            <input type="checkbox" checked="checked" name="remember" > Remember me
+          </label>
+        </div>
+    
+        <div class="container" style="background-color:#f1f1f1">
+          <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+          <span class="psw">Forgot <a href="#">password?</a></span>
+        </div>
+      </form>
+    </div>
+    
+    <script>
+    // Get the modal
+    var modal = document.getElementById('id01');
+    
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+    </script>
+
+    
+    
+    
+
+  
+  </a>
+  <a href="#photos" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+    <i class="fa fa-eye w3-xxlarge"></i>
+    <p>FILES</p>
+  </a>
+  <a href="#contact" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+    <i class="fa fa-envelope w3-xxlarge"></i>
+    <p>CONTACT</p>
+  </a>
+</nav>
+
+<!-- Navbar on small screens (Hidden on medium and large screens) -->
+<div class="w3-top w3-hide-large w3-hide-medium" id="myNavbar">
+  <div class="w3-bar w3-black w3-opacity w3-hover-opacity-off w3-center w3-small">
+    <a href="#" class="w3-bar-item w3-button" style="width:25% !important">HOME</a>
+    <a href="#about" class="w3-bar-item w3-button" style="width:25% !important">ABOUT</a>
+    <a href="#photos" class="w3-bar-item w3-button" style="width:25% !important">PHOTOS</a>
+    <a href="#contact" class="w3-bar-item w3-button" style="width:25% !important">CONTACT</a>
+  </div>
+</div>
+
+<!-- Page Content -->
+<div class="w3-padding-large" id="main" >
+  <!-- Header/Home -->
+  <header class="w3-container w3-padding-32 w3-center w3-black" id="home">
+    <h1 class="w3-jumbo"><span class="w3-hide-small">SCAN AND CONNECT</span></h1>
+    <!-- <p>QR</p> -->
+    <img src="QR_1.png" alt="boy" class="w3-image" width="160" height="40">
+  </header>
+    <div class="w3-row-padding" style="margin:0 -16px;" >
+      <div class="w3-half w3-margin-bottom" style="display: inline-block; width: 50%;">
+        <ul class="w3-ul w3-white w3-center w3-opacity w3-hover-opacity-off">
+          <li class="w3-dark-grey w3-xlarge w3-padding-32">QR Generator</li>
+          <div style="width: 200px; height: 50px;  text-align: center; margin: 20% auto;" >
+            <input id="itext" placeholder="Enter url or text" value="submit" onkeyup="trackChange(this.value)">
+          </div>
+          
+          <li class="w3-light-grey w3-padding-24">
+          <button onclick= "params()" id="convertBtn">Convert</button>
+
+
+            
+      </div>
+      
+      <div id="qrcode" style="display: inline-block; width: 50%; margin: auto;">
+      </div>
+      <div class="w3-row-padding" style="margin:0 -16px;" >
+        <div class="w3-half w3-margin-bottom">
+          <ul class="w3-ul w3-white w3-center w3-opacity w3-hover-opacity-off">
+            <li class="w3-dark-grey w3-xlarge w3-padding-32">QR Generator</li>
+            <div style="width: 200px; height: 50px;  text-align: center; margin: 20% auto;">
+              Drag and Drop
+            </div>
+            
+            <li class="w3-light-grey w3-padding-24">
+              <!-- <button class="w3-button w3-white w3-padding-large w3-hover-black">Upload File</button> -->
+              <form action="">
+                <!-- <input type="file" id="myFile" name="filename">
+                <input type="submit"> -->
+                <div>        
+                  <input type="file" id="fileUpload">    
+                </div>    
+                <div> 
+                  <button onclick="s3upload()">Submit</button>    
+                </div>     
+                <progress max=”100” value=”0”></progress>
+              </form>
+
+              
+  
+  
+              
+        </div>
+
+        <script type="text/javascript">
+          function s3upload() {
+             var files = document.getElementById('fileUpload').files;
+             if (files) 
+             {
+               var file = files[0];
+               var fileName = file.name;
+               var filePath = 'my-first-bucket-path/' + fileName;
+               var fileUrl = 'https://' + bucketRegion + '.amazonaws.com/my-    first-bucket/' +  filePath;
+               s3.upload({
+                  Key: filePath,
+                  Body: file,
+                  ACL: 'public-read'
+                  }, function(err, data) {
+                  if(err) {
+                  reject('error');
+                  }
+                  alert('Successfully Uploaded!');
+                  }).on('httpUploadProgress', function (progress) {
+                  var uploaded = parseInt((progress.loaded * 100) / progress.total);
+                  $("progress").attr('value', uploaded);
+                });
+             }
+          };
+          </script>
+      
+
+      <div class="w3-row-padding" style="margin:0 -16px;" >
+        <div class="w3-half w3-margin-bottom">
+          <ul class="w3-ul w3-white w3-center w3-opacity w3-hover-opacity-off">
+            <li class="w3-dark-grey w3-xlarge w3-padding-32">QR Scanner</li>
+            <div style="width: 200px; height: 50px;  text-align: center; margin: 20% auto;">
+              Drag and Drop
+            </div>
+            <!-- <li class="w3-padding-16">Web Design</li>
+            <li class="w3-padding-16">Photography</li>
+            <li class="w3-padding-16">5GB Storage</li>
+            <li class="w3-padding-16">Mail Support</li> -->
+            <!-- <li class="w3-padding-16">
+              <h2>$ 10</h2>
+              <span class="w3-opacity">per month</span>
+            </li> -->
+            <li class="w3-light-grey w3-padding-24">
+              <!-- <button class="w3-button w3-white w3-padding-large w3-hover-black">Upload File</button> -->
+              <form action="/action_page.php">
+                <input type="file" id="myFile" name="filename">
+                <input type="submit">
+              </form>
+            </li>
+          </ul>
+        </div>
+  
+
+<!-- END PAGE CONTENT -->
+</div>
+<!-- /* Load the library */ -->
+
+
+
+
+<footer class="w3-content w3-padding-64 w3-text-grey w3-xlarge">
+  <i class="fa fa-facebook-official w3-hover-opacity"></i>
+  <i class="fa fa-instagram w3-hover-opacity"></i>
+  <i class="fa fa-snapchat w3-hover-opacity"></i>
+  <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+  <i class="fa fa-twitter w3-hover-opacity"></i>
+  <i class="fa fa-linkedin w3-hover-opacity"></i>
+  <p class="w3-medium">Powered by <a href="https://www.google.com/w3css/default.asp" target="_blank" class="w3-hover-text-green">hey!smasher</a></p>
+<!-- End footer -->
+</footer>
+
+</body>
+</html>
